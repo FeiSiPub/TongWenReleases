@@ -1,0 +1,5 @@
+This repository is for binary releases and issue tracking only.
+The source code for TongWen CAD Suite is proprietary and not included here.
+
+Please DO NOT download this "Source code" archive.
+Instead, download the actual installer binaries (e.g., .msi or .zip) from the Assets section of the GitHub Release page.
