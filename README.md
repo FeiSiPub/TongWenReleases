@@ -1,6 +1,14 @@
 <div align="center">
+  <img src="assets/social_preview.png" alt="TongWen CAD Suite Banner" width="100%">
+  
   <h1>同文 (Tongwen CAD Suite)</h1>
   <p><b>面向工程领域的无损 CAD/BIM 图纸翻译套件</b></p>
+
+  <p>
+    <img src="https://img.shields.io/badge/Platform-Windows-blue.svg?style=flat-square" alt="Platform">
+    <img src="https://img.shields.io/badge/License-Proprietary-orange.svg?style=flat-square" alt="License">
+    <img src="https://img.shields.io/badge/CAD-AutoCAD%20%7C%20Revit-brightgreen.svg?style=flat-square" alt="CAD Support">
+  </p>
 </div>
 
 ---
@@ -8,6 +16,10 @@
 同文 (Tongwen) 是一个专为工程领域设计的无损 CAD/BIM 图纸翻译工具。通过先进的提取与回写技术，同文能够在跨语言翻译的同时，完美保留原生图纸的各项核心属性。
 
 > **核心理念**：车同轨，书同文。
+
+<div align="center">
+  <img src="assets/mockup_splash.png" alt="TongWen Software Showcase" width="80%">
+</div>
 
 ## 🌟 核心特性
 
@@ -39,7 +51,12 @@
 ## 💬 社区与交流
 
 加入我们的官方用户交流群，获取第一手更新资讯，或与其他开发者/工程师交流使用心得：
-- **同文 (Tongwen) 翻译软件官方 QQ 群**: `1035193929`
+
+<div align="center">
+  <img src="assets/qq_group_qr.png" alt="QQ Group QR Code" width="250">
+  <br>
+  <b>同文 (Tongwen) 翻译软件官方 QQ 群</b>: <code>1035193929</code>
+</div>
 
 ## ⚖️ 许可协议
 
