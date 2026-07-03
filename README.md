@@ -5,7 +5,6 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-Windows-blue.svg?style=flat-square" alt="Platform">
-    <img src="https://img.shields.io/badge/License-Proprietary-orange.svg?style=flat-square" alt="License">
     <img src="https://img.shields.io/badge/CAD-AutoCAD%20%7C%20Revit-brightgreen.svg?style=flat-square" alt="CAD Support">
   </p>
 </div>
