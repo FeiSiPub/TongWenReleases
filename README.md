@@ -1,6 +1,5 @@
 <div align="center">
-  <img src="assets/social_preview.png" alt="TongWen CAD Suite Banner" width="100%">
-  
+
   <h1>同文 (Tongwen CAD Suite)</h1>
   <p><b>面向工程领域的无损 CAD/BIM 图纸翻译套件</b></p>
 
@@ -57,7 +56,3 @@
   <br>
   <b>同文 (Tongwen) 翻译软件官方 QQ 群</b>: <code>1035193929</code>
 </div>
-
-## ⚖️ 许可协议
-
-本软件的最终用户许可协议（EULA）请参阅安装包内附带的 `License.rtf` 文件。
