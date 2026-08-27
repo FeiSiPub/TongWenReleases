@@ -33,9 +33,16 @@
 ### 下载与安装流程：
 
 1. 访问 [Releases 页面](https://github.com/FeiSiPub/TongWenReleases/releases)。
-2. 下载最新版本（例如 `Tongwen-Installer-vX.Y.Z.msi` 或对应的绿色版压缩包）。
+2. 下载最新正式版本的 `TongWen_Installer_vX.Y.Z.msi` 和同一 Release 中的 `SHA256SUMS.txt`。
 3. 按照安装向导完成安装，确保您的电脑上已安装支持的 CAD/BIM 宿主软件。
 4. 启动同文工作台，或在 CAD 软件中加载同文插件。
+
+当前推荐正式版为 [v0.2.23](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.23)。
+`v0.2.22` 是首个包含稳定版策略客户端的基线安装包，主要用于验证升级和七天宽限链路；
+普通用户应优先安装当前正式版。
+
+安装包当前没有 Authenticode 发布者签名，Windows 可能显示“未知发布者”。请从本仓库的
+Release 下载，并使用同一 Release 内的 `SHA256SUMS.txt` 核对文件完整性。
 
 ## 📚 文档与支持
 
@@ -45,6 +52,13 @@
 - **交互流程说明**：了解 Headless 批处理模式和 GUI 交互模式的操作差异。
 
 如果您在使用过程中遇到任何 Bug，或有新的功能建议，欢迎在 [Issues](https://github.com/FeiSiPub/TongWenReleases/issues) 页面提交反馈。
+
+## 🔗 发布链路
+
+本仓库只负责公开安装包分发。源码、官网更新策略和公开下载分别由三个仓库维护；版本镜像、
+策略发布顺序、首组正式安装包摘要和回滚边界见
+[Release Lifecycle](docs/ReleaseLifecycle.md)。Tongwen 客户端读取的公开 stable 策略为
+[https://fscad.xyz/updates/tongwen/stable.json](https://fscad.xyz/updates/tongwen/stable.json)。
 
 ## 💬 社区与交流
 
