@@ -15,11 +15,12 @@ The source release workflow creates a Release in `FsDiG/TongWen` and then mirror
 release notes, MSI and checksum file here. Internal Sentry symbols, PDB files and Reactor mapping
 files are intentionally not public assets.
 
-Mirroring a public Release does **not** update the client update-policy URL. The release workflow
-does not write to the website repository; after the public MSI is verified, a release owner must
-make an explicit, reviewed change to `feisi-website`'s `stable.json`. That website commit then
-automatically publishes both static site profiles. This deliberate separation prevents a new Tag
-from accidentally starting the old-version grace period.
+For a published stable Release, successful mirroring is the prerequisite for the source workflow
+to request the website policy sync. The website verifies this Release is not draft/prerelease and
+has the matching MSI plus `SHA256SUMS.txt` before it advances the client update-policy URL and
+publishes both static site profiles. Beta, draft and prerelease assets never update the stable
+policy. If this final sync fails, rerun the same stable Tag after repairing the external condition;
+do not create a fictitious version to hide the partial publication.
 
 Related operational documentation:
 
