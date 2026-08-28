@@ -21,7 +21,15 @@ Every source Release and its public mirror use the exact immutable title `同文
 version matches the Release Tag. The GitHub `Latest` and `Pre-release` badges are the only release
 state indicators; titles must not include changing labels such as “current stable”, “latest”, or a
 feature theme. User-facing themes, fixes, upgrade notes and limitations belong in the Release Notes.
-The public mirror copies the source title and notes, then appends its one source-Release backlink.
+
+## Download presentation
+
+The public Release body begins with a direct `下载 Windows 安装包 (MSI)` link. It is the supported
+download entry for end users, followed by a short `SHA256SUMS.txt` verification reminder, the source
+Release Notes, and one source-Release backlink. GitHub automatically renders `Source code (zip)` and
+`Source code (tar.gz)` for every tagged Release; they are repository snapshots, not Tongwen installer
+packages or a supported source distribution. Keep the MSI link prominent rather than presenting those
+generated archives as product downloads.
 
 For a published stable Release, successful mirroring is the prerequisite for the source workflow
 to request the website policy sync. The website verifies this Release is not draft/prerelease and
@@ -74,8 +82,8 @@ Get-FileHash .\TongWen_Installer_v0.2.24.msi -Algorithm SHA256
   MSI.
 - Every mirrored Tag must have exactly one matching MSI and one `SHA256SUMS.txt`.
 - Release titles, source-authored notes, stable/prerelease status, asset size and SHA-256 must match
-  the source Release. The public workflow appends one source-Release backlink to the notes; that
-  expected backlink is not drift.
+  the source Release. The public workflow prepends the supported MSI direct-download section and
+  appends one source-Release backlink to the notes; those expected wrappers are not drift.
 - Titles must be exactly `同文 vX.Y.Z`. Keep the version theme in Release Notes and use GitHub's
   `Latest` / `Pre-release` badges for release state.
 - Do not manually upload internal symbols, debug files, credentials or source-only artifacts.
