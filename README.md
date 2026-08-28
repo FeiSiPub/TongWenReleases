@@ -37,7 +37,7 @@
 3. 按照安装向导完成安装，确保您的电脑上已安装支持的 CAD/BIM 宿主软件。
 4. 启动同文工作台，或在 CAD 软件中加载同文插件。
 
-当前推荐正式版为 [v0.2.23](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.23)。
+当前推荐正式版为 [v0.2.24](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.24)。
 `v0.2.22` 是首个包含稳定版策略客户端的基线安装包，主要用于验证升级和七天宽限链路；
 普通用户应优先安装当前正式版。
 
