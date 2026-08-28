@@ -46,7 +46,7 @@ Release 下载，并使用同一 Release 内的 `SHA256SUMS.txt` 核对文件完
 
 ## 📚 文档与支持
 
-在线使用文档：<https://fscad.xyz/products/dwg-translator/docs/>。
+在线使用文档：<https://fscad.xyz/products/dwg-translator/docs/guide/>。
 
 文档页面覆盖安装、文字提取、人工审校、安全写回，以及术语库和翻译记忆的使用方式。安装包中仍附带离线用户指南（`USER_GUIDE.html`）；在受限网络或无法打开浏览器时，可从软件主界面的“使用说明”入口查看。
 
