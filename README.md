@@ -46,7 +46,11 @@ Release 下载，并使用同一 Release 内的 `SHA256SUMS.txt` 核对文件完
 
 ## 📚 文档与支持
 
-关于如何配置术语库、进行翻译和回写操作，请参考我们在安装包中附带的用户指南（`USER_GUIDE.md` / `USER_GUIDE.html`）。
+关于如何配置术语库、进行翻译和回写操作，可使用安装包中附带的离线用户指南
+（`USER_GUIDE.html`），也可以阅读持续更新的
+[同文在线使用文档](https://fscad.xyz/products/dwg-translator/docs/getting-started/)。在线文档按“安装与准备、
+完成第一张图纸、Studio 工作流、AutoCAD 插件、校对与安全写回”等实际任务组织；离线环境请优先使用
+安装包内的手册。
 
 - **术语库使用指南**：了解如何管理术语库、翻译记忆，以及进行人工修正。
 - **交互流程说明**：了解 Headless 批处理模式和 GUI 交互模式的操作差异。
