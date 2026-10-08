@@ -14,19 +14,23 @@
 candidate 的 run ID、source commit、版本、大小、SHA256 和保护凭证，再原样发布该 MSI。
 已验收的候选不重建、不重新保护；符号、PDB、Reactor 映射和凭据不进入公开资产。
 
-源 Release 与公开镜像的标题固定为 `同文 vX.Y.Z`，与 Tag 一致。当前/最新状态使用 GitHub
+源 Release 与公开镜像的当前标题固定为 `同文 2 Preview vX.Y.Z`，与 Tag 一致。当前/最新状态使用 GitHub
 Latest/Pre-release 标记，功能主题与范围写入 Release Notes，不能放入会随时间失真的标题。
 公开说明置顶 MSI 直接下载入口，并附 SHA256SUMS.txt 核对说明与源码 Release 回链；GitHub
 自动生成的 Source code 压缩包是本分发仓库的快照，不是用户安装包。
+
+同文 2 长期显示 Preview；实际使用稳定一段时间后，产品负责人另行决定正式定位。
+Preview 不改变数字版本、Tag、MSI 名称或 GitHub 技术分类，也不能由自动化通过自动晋级。
+经典版 0.2.27 只保留原始下载，不生成新的旧版安装包。
 
 ## 当前双下载入口
 
 | 版本 | 角色 | MSI 大小 | SHA256 |
 | --- | --- | --- | --- |
-| [v2.0.1](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.1) | 当前同文 2 正式版 | 28,098,368 bytes | `e65d158a2c84e86f773cd5755e8e9767b6bab9a42f71ad30e0c1b056f3627bca` |
+| [v2.0.2](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.2) | 当前同文 2 Preview | 28,102,634 bytes | `e2836feb9629e32741191191d2aba0f2238c57db6213f8b815e910e813c4ebb5` |
 | [v0.2.27](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.27) | 最后一个 1.x 正式版 | 31,391,671 bytes | `6a5abc9af43502391816b94c5d99b70141d04555fea476f00197b26b5e14880b` |
 
-产品页保留两个直接 MSI 地址。新版本入口随已公开的 stable 版本更新；旧版入口固定为
+产品页保留两个直接 MSI 地址。Preview 入口随已公开的数字 stable 版本更新；旧版入口固定为
 0.2.27，不能使用动态 `/latest`。同文 2 会替换 Preview/旧版安装，不能同机并存、不会迁移旧
 工作区。返回旧版前必须先卸载同文 2；Windows Installer 不支持直接降级覆盖。
 
@@ -35,6 +39,13 @@ Latest/Pre-release 标记，功能主题与范围写入 Release Notes，不能�
 测试、Reactor 保护与 MSI 审计。[publish run 37768676552](https://github.com/FsDiG/TongWen/actions/runs/37768676552)
 按产品负责人本次明确授权公开了同一份 MSI。真实 AutoCAD GUI、Provider、安装升级/卸载
 与其他年份宿主仍未验证；不将发布授权或静态审计写成这些项目通过。
+
+2.0.2 候选 run [37802883739](https://github.com/FsDiG/TongWen/actions/runs/37802883739)
+来源为 `d927aae21be07298902cb34a3ea5bcf2a9606765`；publish run
+[37804156655](https://github.com/FsDiG/TongWen/actions/runs/37804156655) 原样公开该受保护 MSI。
+完整 Release 0 errors/100 warnings，普通测试 866 通过、1 项 Sentry smoke 跳过；401 项 File
+表、ProductName 同文 2 Preview、ProductVersion 2.0.2、同数值覆盖关闭与 runtime 门禁均已核对。
+2.0.2、2.0.1、0.2.27 公网 MSI 已匿名下载并核对摘要；2.0.1 与旧版原资产未替换。
 
 ## stable 策略发布顺序
 
@@ -45,8 +56,8 @@ Latest/Pre-release 标记，功能主题与范围写入 Release Notes，不能�
    保留 enforcement、minimum 与 grace 字段，并调用双站静态发布。
 5. 部署后核对产品页、帮助和无参数公网 stable JSON。冷缓存探针不能代替最终公开地址验收。
 
-普通 stable 发布只提示更新，不自动下载、执行 MSI 或开启强制升级。当前策略为 revision 8、
-latest 2.0.1、`enforcement_enabled=false`、minimum 0.0.0、grace 30 天；关闭时不启动宽限或停用。
+普通 stable 发布只提示更新，不自动下载、执行 MSI 或开启强制升级。当前策略为 revision 10、
+latest 2.0.2、`enforcement_enabled=false`、minimum 0.0.0、grace 30 天；关闭时不启动宽限或停用。
 未来开启 30 天普通宽限或 0 天紧急停用，必须取得产品负责人独立授权并提高 revision。
 Beta、Draft、Pre-release 不推进 stable 策略。
 
@@ -64,7 +75,7 @@ Beta、Draft、Pre-release 不推进 stable 策略。
 ## 核对与维护
 
 ```powershell
-Get-FileHash .\TongWen_Installer_v2.0.1.msi -Algorithm SHA256
+Get-FileHash .\TongWen_Installer_v2.0.2.msi -Algorithm SHA256
 ```
 
 - 每个镜像 Tag 恰好有一份对应版本 MSI 和一份 SHA256SUMS.txt。
