@@ -1,55 +1,60 @@
 <div align="center">
 
-  <h1>同文 (Tongwen CAD Suite)</h1>
-  <p><b>面向工程领域的无损 CAD/BIM 图纸翻译套件</b></p>
+  <h1>同文 2 (Tongwen)</h1>
+  <p><b>AutoCAD 图纸翻译、人工审校与受控写回</b></p>
 
   <p>
     <img src="https://img.shields.io/badge/Platform-Windows-blue.svg?style=flat-square" alt="Platform">
-    <img src="https://img.shields.io/badge/CAD-AutoCAD%20%7C%20Revit-brightgreen.svg?style=flat-square" alt="CAD Support">
+    <img src="https://img.shields.io/badge/CAD-AutoCAD%202019–2026-brightgreen.svg?style=flat-square" alt="AutoCAD 2019–2026">
   </p>
 </div>
 
 ---
 
-同文 (Tongwen) 是一个专为工程领域设计的无损 CAD/BIM 图纸翻译工具。通过先进的提取与回写技术，同文能够在跨语言翻译的同时，完美保留原生图纸的各项核心属性。
+同文 2 在 AutoCAD 中提取 DBText/MText，使用 CSV 术语约束翻译，逐项人工审校，并在图纸内
+预览版面。明确采用后，译文写入独立图层，源对象保持不变。本仓库只分发用户安装包；
+产品源码和发布证据由 [Tongwen 源码仓库](https://github.com/FsDiG/TongWen) 维护。
 
 > **核心理念**：车同轨，书同文。
 
-<div align="center">
-  <img src="assets/mockup_splash.png" alt="TongWen Software Showcase" width="80%">
-</div>
+## 下载与安装
 
-## 🌟 核心特性
+| 入口 | 适用情况 | 版本说明与校验文件 |
+| --- | --- | --- |
+| [下载同文 2 · v2.0.1 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v2.0.1/TongWen_Installer_v2.0.1.msi) | 新工作使用当前 AutoCAD 工作区 | [v2.0.1 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.1) |
+| [下载旧版 · v0.2.27 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v0.2.27/TongWen_Installer_v0.2.27.msi) | 需要继续既有 1.x 工作流程 | [v0.2.27 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.27) |
 
-- **无损回写**：在翻译过程中，完全保留原生图层、坐标、字体、块属性、尺寸标注和 BIM 参数等。
-- **术语约束**：支持行业术语库 (Glossary) 和翻译记忆库 (Translation Memory)，确保专业词汇翻译的一致性和准确性。
-- **跨平台支持**：支持主流的 CAD/BIM 软件，如 AutoCAD、Revit、SolidWorks 等（需配合相应的插件使用）。
-- **人工干预闭环**：提供从文本提取、术语约束翻译、人工校对、质量检查到精准回写的完整工作流。
+同文 2 会替换已安装的 Preview 或旧版，不能同机并存；旧工作区不迁移，请先备份图纸和数据。
+如需返回旧版，先卸载同文 2，再安装 0.2.27，不能直接降级覆盖；旧版不读取同文 2 工作区。
+历史 Preview 和其他版本继续保留在 [全部 Releases](https://github.com/FeiSiPub/TongWenReleases/releases)。
 
-## 🚀 快速开始
-
-本项目仅作为 `Tongwen CAD Suite` 的公开发布仓库。如果您是最终用户，请直接前往 **[Releases](https://github.com/FeiSiPub/TongWenReleases/releases)** 页面下载最新版本的安装包。
-
-### 下载与安装流程：
-
-1. 访问 [Releases 页面](https://github.com/FeiSiPub/TongWenReleases/releases)。
-2. 下载最新正式版本的 `TongWen_Installer_vX.Y.Z.msi` 和同一 Release 中的 `SHA256SUMS.txt`。
-3. 按照安装向导完成安装，确保您的电脑上已安装支持的 CAD/BIM 宿主软件。
-4. 启动同文工作台，或在 CAD 软件中加载同文插件。
-
-当前推荐正式版为 [v0.2.24](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.24)。
-`v0.2.22` 是首个包含稳定版策略客户端的基线安装包，主要用于验证升级和七天宽限链路；
-普通用户应优先安装当前正式版。
+1. 下载所选版本的 MSI 和同一 Release 中的 `SHA256SUMS.txt`，核对文件摘要。
+2. 同文 2 要求 Windows x64、AutoCAD 2019–2026 和 x64 .NET 8 Desktop Runtime；缺少运行时时，
+   MSI 会阻止新装或升级。旧版的运行要求以其 Release 为准。
+3. 安装后使用 Studio 配置 Provider、启动 AutoCAD，再执行 `TW_WORKSPACE` 或 `TW_WORKSPACE_ALL`。
 
 安装包当前没有 Authenticode 发布者签名，Windows 可能显示“未知发布者”。请从本仓库的
 Release 下载，并使用同一 Release 内的 `SHA256SUMS.txt` 核对文件完整性。
 
-## 📚 文档与支持
+## 当前能力与验证范围
 
-关于如何配置术语库、进行翻译和回写操作，请参考我们在安装包中附带的用户指南（`USER_GUIDE.md` / `USER_GUIDE.html`）。
+- 唯一业务工作区由 AutoCAD 插件拥有；Studio 提供启动器和 Provider 设置。
+- 支持 CSV 术语快照、同一翻译请求内的精确重复复用、候选选择、人工修改、审校与 JSON/CSV 报告。
+- 支持 DBText/MText 的原生版面预览、明确采用与独立译文图层写回。
+- 2019–2024 使用 net48，2025–2026 使用 net8；三个 SDK 的 Release 编译成功是当前支持判定依据。
+- Revit/SolidWorks、AttributeReference/Dimension、替换原文/双语追加、模糊 TM 和 Studio 完整工作区
+  不属于本次正式版范围。
 
-- **术语库使用指南**：了解如何管理术语库、翻译记忆，以及进行人工修正。
-- **交互流程说明**：了解 Headless 批处理模式和 GUI 交互模式的操作差异。
+2.0.1 已完成完整 Release 编译、普通 .NET 测试（866 通过、1 项真实 Sentry smoke 跳过）、
+AutoCAD 2026 Core Console 无 UI 检查和 MSI 静态审计。产品负责人明确授权发布；真实
+AutoCAD GUI、Provider、安装升级/卸载及其他年份宿主仍未验证，编译和无 UI 检查不代表这些项目通过。
+
+## 文档与支持
+
+- [产品页与两个下载入口](https://fscad.xyz/products/dwg-translator/)
+- [当前在线帮助](https://fscad.xyz/products/dwg-translator/docs/getting-started/)
+- 安装目录中的 `USER_GUIDE.html`：离线帮助，与该安装包的版本一起保存。
+- [最后一个 1.x 版本的源码与历史说明](https://github.com/FsDiG/TongWen/tree/v1)：仅供旧版工作流程参考。
 
 如果您在使用过程中遇到任何 Bug，或有新的功能建议，欢迎在 [Issues](https://github.com/FeiSiPub/TongWenReleases/issues) 页面提交反馈。
 
