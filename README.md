@@ -22,10 +22,13 @@
 
 ## 下载与安装
 
-| 入口 | 适用情况 | 版本说明与校验文件 |
-| --- | --- | --- |
-| [下载 Preview · v2.0.2 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v2.0.2/TongWen_Installer_v2.0.2.msi) | 用图纸副本体验新的 AutoCAD 工作流程 | [v2.0.2 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.2) |
-| [下载经典版 · v0.2.27 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v0.2.27/TongWen_Installer_v0.2.27.msi) | 需要继续既有 1.x 工作流程 | [v0.2.27 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.27) |
+| 版本 | 主下载（Cloudflare） | 备用下载（GitHub） | 版本说明与校验文件 |
+| --- | --- | --- | --- |
+| Preview · v2.0.2 | [下载 MSI](https://tongwen-download.278848.xyz/releases/v2.0.2/TongWen_Installer_v2.0.2.msi) | [下载 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v2.0.2/TongWen_Installer_v2.0.2.msi) | [v2.0.2 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.2) |
+| 经典版 · v0.2.27 | [下载 MSI](https://tongwen-download.278848.xyz/releases/v0.2.27/TongWen_Installer_v0.2.27.msi) | [下载 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v0.2.27/TongWen_Installer_v0.2.27.msi) | [v0.2.27 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.27) |
+
+两个渠道提供同一份原始安装包，大小与 SHA256 已核对。Preview 用于先在图纸副本上体验新流程；
+经典版保留已有 1.x 工作流程。下载不畅时可直接选择对应的 GitHub 备用入口。
 
 同文 2 会替换已安装的 Preview 或旧版，不能同机并存；旧工作区不迁移，请先备份图纸和数据。
 如需返回旧版，先卸载同文 2，再安装 0.2.27，不能直接降级覆盖；旧版不读取同文 2 工作区。
@@ -38,7 +41,7 @@
 3. 安装后使用 Studio 配置 Provider、启动 AutoCAD，再执行 `TW_WORKSPACE` 或 `TW_WORKSPACE_ALL`。
 
 安装包当前没有 Authenticode 发布者签名，Windows 可能显示“未知发布者”。请从本仓库的
-Release 下载，并使用同一 Release 内的 `SHA256SUMS.txt` 核对文件完整性。
+Release 或上述 Cloudflare 主入口下载，并使用同版本的 `SHA256SUMS.txt` 核对文件完整性。
 
 ## 当前能力与验证范围
 
