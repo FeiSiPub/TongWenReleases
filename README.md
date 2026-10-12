@@ -62,7 +62,7 @@ Provider、安装升级和各年份宿主没有因文案修改重做。发布为
 
 ## 文档与支持
 
-- [产品页与两个下载入口](https://fscad.xyz/products/dwg-translator/)
+- [产品页与两个版本的双渠道下载](https://fscad.xyz/products/dwg-translator/)
 - [当前在线帮助](https://fscad.xyz/products/dwg-translator/docs/getting-started/)
 - 安装目录中的 `USER_GUIDE.html`：离线帮助，与该安装包的版本一起保存。
 - [最后一个 1.x 版本的源码与历史说明](https://github.com/FsDiG/TongWen/tree/v1)：仅供旧版工作流程参考。
