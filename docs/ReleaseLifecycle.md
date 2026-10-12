@@ -6,7 +6,7 @@
 
 | 仓库 | 职责 |
 | --- | --- |
-| [FsDiG/TongWen](https://github.com/FsDiG/TongWen) | 产品源码、contract、候选构建与验收、MSI、内部保护符号 |
+| [FsDiG/TongWen](https://github.com/FsDiG/TongWen) | 产品源码、contract、候选构建与验收、MSI、R2 原包镜像、内部保护符号 |
 | [FeiSiPub/feisi-website](https://github.com/FeiSiPub/feisi-website) | 产品页、在线帮助、cn/global 静态托管与 stable 策略 |
 | [FeiSiPub/TongWenReleases](https://github.com/FeiSiPub/TongWenReleases) | 同 Tag 公开 Release、用户 MSI 与 SHA256SUMS.txt |
 
@@ -14,9 +14,10 @@
 candidate 的 run ID、source commit、版本、大小、SHA256 和保护凭证，再原样发布该 MSI。
 已验收的候选不重建、不重新保护；符号、PDB、Reactor 映射和凭据不进入公开资产。
 
-源 Release 与公开镜像的当前标题固定为 `同文 2 Preview vX.Y.Z`，与 Tag 一致。当前/最新状态使用 GitHub
+同文 2 的源 Release 与公开镜像当前标题固定为 `同文 2 Preview vX.Y.Z`，与 Tag 一致；旧版标题保留。
+当前/最新状态使用 GitHub
 Latest/Pre-release 标记，功能主题与范围写入 Release Notes，不能放入会随时间失真的标题。
-公开说明置顶 MSI 直接下载入口，并附 SHA256SUMS.txt 核对说明与源码 Release 回链；GitHub
+公开说明置顶 R2 主下载、GitHub 备用下载，并附 SHA256SUMS.txt 核对说明与源码 Release 回链；GitHub
 自动生成的 Source code 压缩包是本分发仓库的快照，不是用户安装包。
 
 同文 2 长期显示 Preview；实际使用稳定一段时间后，产品负责人另行决定正式定位。
@@ -30,7 +31,8 @@ Preview 不改变数字版本、Tag、MSI 名称或 GitHub 技术分类，也不
 | [v2.0.2](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.2) | 当前同文 2 Preview | 28,102,634 bytes | `e2836feb9629e32741191191d2aba0f2238c57db6213f8b815e910e813c4ebb5` |
 | [v0.2.27](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.27) | 最后一个 1.x 正式版 | 31,391,671 bytes | `6a5abc9af43502391816b94c5d99b70141d04555fea476f00197b26b5e14880b` |
 
-产品页保留两个直接 MSI 地址。Preview 入口随已公开的数字 stable 版本更新；旧版入口固定为
+产品页保留 Preview/经典版两张卡片，各提供 R2 主下载及 GitHub 备用，共四个链接、两份原包。
+Preview 入口随已公开的数字 stable 版本更新；旧版入口固定为
 0.2.27，不能使用动态 `/latest`。同文 2 会替换 Preview/旧版安装，不能同机并存、不会迁移旧
 工作区。返回旧版前必须先卸载同文 2；Windows Installer 不支持直接降级覆盖。
 
@@ -47,14 +49,24 @@ Preview 不改变数字版本、Tag、MSI 名称或 GitHub 技术分类，也不
 表、ProductName 同文 2 Preview、ProductVersion 2.0.2、同数值覆盖关闭与 runtime 门禁均已核对。
 2.0.2、2.0.1、0.2.27 公网 MSI 已匿名下载并核对摘要；2.0.1 与旧版原资产未替换。
 
+2026-10-12 仅将现有 2.0.2 与 0.2.27 原包镜像到独立 `tongwen-releases` bucket，自定义域名为
+`tongwen-download.278848.xyz`，直接提供对象，不增加 Worker。每版只上传 MSI 与 SHA256SUMS.txt，
+对象路径为 `releases/vX.Y.Z/`；附件保留原文件名，版本缓存不可变，错误响应不缓存。
+四个下载地址已匿名验证 HEAD、Range、附件名称、完整大小和上述 SHA256；两渠道校验文件逐字节一致。
+没有重编译、重打包、重新构建旧版或替换 GitHub 资产；其他历史版本保持原状。
+
 ## stable 策略发布顺序
 
 1. 源码仓库明确 publish 原 candidate，完成正式 stable Release。
 2. 镜像相同 Tag、说明、唯一匹配 MSI 与 SHA256SUMS.txt 到本仓库。
 3. 核对两边资产大小/摘要一致，并确认公开链接可下载、Release 非 Draft/Pre-release。
-4. 源码工作流通知官网；官网再次验证资产后递增 policy revision、更新 latest/download，原样
+4. 上传原 MSI 和校验文件到 R2，验证公网 HEAD、Range、校验文件与完整 SHA256 后更新置顶下载说明。
+5. 源码工作流通知官网；官网再次比较 R2 大小和原始校验文件后递增 policy revision、更新 latest/download，原样
    保留 enforcement、minimum 与 grace 字段，并调用双站静态发布。
-5. 部署后核对产品页、帮助和无参数公网 stable JSON。冷缓存探针不能代替最终公开地址验收。
+6. 部署后核对产品页、帮助和无参数公网 stable JSON。冷缓存探针不能代替最终公开地址验收。
+
+仅已公开的数字 stable `vX.Y.Z` 自动镜像到 R2，内部候选和带后缀的 Beta 不纳入。
+Preview 仍只表达成熟度；客户端当前 GitHub 下载白名单及 `stable.json` 的下载契约不变。
 
 普通 stable 发布只提示更新，不自动下载、执行 MSI 或开启强制升级。当前策略为 revision 10、
 latest 2.0.2、`enforcement_enabled=false`、minimum 0.0.0、grace 30 天；关闭时不启动宽限或停用。
@@ -82,7 +94,11 @@ Get-FileHash .\TongWen_Installer_v2.0.2.msi -Algorithm SHA256
 - 标题、来源说明、stable/prerelease 状态、大小和 SHA256 与源 Release 一致；置顶下载区和
   唯一源码回链属于公开镜像的固定包装。
 - 当前 MSI 没有 Authenticode 发布者签名；SHA256 只能确认下载完整性，不能替代发布者签名。
-- 镜像或网站通知失败时修复外部条件，再按同一 Tag 幂等重试，不虚构新版本。
+- 已有同 SHA256 的 GitHub/R2 对象复用，只补缺失文件；同名内容冲突立即停止，不删除重传。
+- R2 失败保留 GitHub 下载，并阻止官网推进。修复后只运行源码仓库“恢复公开 R2 下载镜像”，
+  输入已经发布的数字 Tag；不会构建或重建 Release，官网同步默认关闭，首次两个版本均保持关闭。
+- R2 故障可把官网主按钮恢复为原 GitHub 地址；不删除安装包、不回退版本或更新策略。
+- 镜像或网站通知失败时按同一 Tag 幂等重试，不虚构新版本。
 - 回滚保留已经公开的资产；策略使用更高 revision 关闭 enforcement，并指向确认可用版本。
   在线客户端刷新后解除限制；完全离线且已有到期缓存的客户端不会立即收到放宽策略。
 
