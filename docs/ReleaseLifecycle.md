@@ -22,18 +22,20 @@ Latest/Pre-release 标记，功能主题与范围写入 Release Notes，不能�
 
 同文 2 长期显示 Preview；实际使用稳定一段时间后，产品负责人另行决定正式定位。
 Preview 不改变数字版本、Tag、MSI 名称或 GitHub 技术分类，也不能由自动化通过自动晋级。
-经典版 0.2.27 只保留原始下载，不生成新的旧版安装包。
+经典版持续维护0.2.x系列，当前0.2.28；历史0.2.27只保留原包。维护线与main/2.0运行时分开。
 
 ## 当前双下载入口
 
 | 版本 | 角色 | MSI 大小 | SHA256 |
 | --- | --- | --- | --- |
-| [v2.0.2](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.2) | 当前同文 2 Preview | 28,102,634 bytes | `e2836feb9629e32741191191d2aba0f2238c57db6213f8b815e910e813c4ebb5` |
-| [v0.2.27](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.27) | 最后一个 1.x 正式版 | 31,391,671 bytes | `6a5abc9af43502391816b94c5d99b70141d04555fea476f00197b26b5e14880b` |
+| [v2.0.4](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.4) | 当前同文2.0 Preview | 163,717,440 bytes | `eb7d87798b89ef88259818f0b98236aedef57a5a3f462ec86fa6f5fea4a7a9c5` |
+| [v0.2.28](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.28) | 当前同文经典版，持续维护0.2.x | 24,171,184 bytes | `e0b843d1d986555ff4c7e09684a11a597eeb506fce87fa04f158bfaae13eae7c` |
 
 产品页保留 Preview/经典版两张卡片，各提供 R2 主下载及 GitHub 备用，共四个链接、两份原包。
-Preview 入口随已公开的数字 stable 版本更新；旧版入口固定为
-0.2.27，不能使用动态 `/latest`。同文 2 会替换 Preview/旧版安装，不能同机并存、不会迁移旧
+Preview与经典版各显式指定一个已公开的当前版本，不使用跨产品动态`/latest`选包。官网按钮
+统一“下载 · v<完整版本号>”，版本下方展示实际公开Release的北京时间日期。历史版本统一从
+全部Releases访问。当前为2.0.4与0.2.28，不再按通道新增第三个下载入口。
+同文 2 会替换 Preview/旧版安装，不能同机并存、不会迁移旧
 工作区。返回旧版前必须先卸载同文 2；Windows Installer 不支持直接降级覆盖。
 
 2.0.1 的业务源码提交为 `d255854b425d133de1ad0ff726e2d2e9d08a4b6b`，内部 candidate run
@@ -49,6 +51,13 @@ Preview 入口随已公开的数字 stable 版本更新；旧版入口固定为
 表、ProductName 同文 2 Preview、ProductVersion 2.0.2、同数值覆盖关闭与 runtime 门禁均已核对。
 2.0.2、2.0.1、0.2.27 公网 MSI 已匿名下载并核对摘要；2.0.1 与旧版原资产未替换。
 
+2.0.4的source commit为`597804d1b0d73a4a3d76748645fab362cb01d59b`，candidate run
+[39945726070](https://github.com/FsDiG/TongWen/actions/runs/39945726070)通过本机NUC11编译、
+普通测试1087通过/1跳过、Reactor保护与1253项MSI File表审计；ProductName为“同文 2 Preview”、
+ProductVersion为2.0.4、同数值覆盖关闭。publish run
+[39946467421](https://github.com/FsDiG/TongWen/actions/runs/39946467421)发布同一候选，未重新构建。
+真实GUI、Undo、Provider、安装及其他年份宿主仍未验收。
+
 2026-10-12 仅将现有 2.0.2 与 0.2.27 原包镜像到独立 `tongwen-releases` bucket，自定义域名为
 `tongwen-download.278848.xyz`，直接提供对象，不增加 Worker。每版只上传 MSI 与 SHA256SUMS.txt，
 对象路径为 `releases/vX.Y.Z/`；附件保留原文件名，版本缓存不可变，错误响应不缓存。
@@ -61,7 +70,7 @@ Preview 入口随已公开的数字 stable 版本更新；旧版入口固定为
 2. 镜像相同 Tag、说明、唯一匹配 MSI 与 SHA256SUMS.txt 到本仓库。
 3. 核对两边资产大小/摘要一致，并确认公开链接可下载、Release 非 Draft/Pre-release。
 4. 上传原 MSI 和校验文件到 R2，验证公网 HEAD、Range、校验文件与完整 SHA256 后更新置顶下载说明。
-5. 源码工作流通知官网；官网再次比较 R2 大小和原始校验文件后递增 policy revision、更新 latest/download，原样
+5. 源码工作流按`sync_website_policy`选项通知官网（默认true）；官网再次比较 R2 大小和原始校验文件后递增 policy revision、更新 latest/download，原样
    保留 enforcement、minimum 与 grace 字段，并调用双站静态发布。
 6. 部署后核对产品页、帮助和无参数公网 stable JSON。冷缓存探针不能代替最终公开地址验收。
 
@@ -72,6 +81,10 @@ Preview 仍只表达成熟度；客户端当前 GitHub 下载白名单及 `stabl
 latest 2.0.2、`enforcement_enabled=false`、minimum 0.0.0、grace 30 天；关闭时不启动宽限或停用。
 未来开启 30 天普通宽限或 0 天紧急停用，必须取得产品负责人独立授权并提高 revision。
 Beta、Draft、Pre-release 不推进 stable 策略。
+
+2026-10-23的2.0.4发行明确关闭`sync_website_policy`：R2/GitHub原包核验后独立更新官网两个
+下载卡片，客户端策略保持revision 10/latest 2.0.2。纯数字版本不改变Preview定位；旧后缀包
+不改名重发。负责人授权编译与必要打包核验后直接发布，不等待PR CI或网页缓存自然过期。
 
 ## 历史基线
 

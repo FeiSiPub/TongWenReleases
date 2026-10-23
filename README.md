@@ -22,17 +22,17 @@
 
 ## 下载与安装
 
-| 版本 | 主下载（Cloudflare） | 备用下载（GitHub） | 版本说明与校验文件 |
-| --- | --- | --- | --- |
-| Preview · v2.0.2 | [下载 MSI](https://tongwen-download.278848.xyz/releases/v2.0.2/TongWen_Installer_v2.0.2.msi) | [下载 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v2.0.2/TongWen_Installer_v2.0.2.msi) | [v2.0.2 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.2) |
-| 经典版 · v0.2.27 | [下载 MSI](https://tongwen-download.278848.xyz/releases/v0.2.27/TongWen_Installer_v0.2.27.msi) | [下载 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v0.2.27/TongWen_Installer_v0.2.27.msi) | [v0.2.27 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.27) |
+| 产品与当前版本 | 发布日期（北京时间） | 主下载（Cloudflare） | 备用下载（GitHub） | 版本说明与校验文件 |
+| --- | --- | --- | --- | --- |
+| 同文2.0 Preview · v2.0.4 | 2026-10-23 | [下载 MSI](https://tongwen-download.278848.xyz/releases/v2.0.4/TongWen_Installer_v2.0.4.msi) | [下载 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v2.0.4/TongWen_Installer_v2.0.4.msi) | [v2.0.4 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.4) |
+| 同文 经典版 · v0.2.28 | 2026-10-23 | [下载 MSI](https://tongwen-download.278848.xyz/releases/v0.2.28/TongWen_Installer_v0.2.28.msi) | [下载 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v0.2.28/TongWen_Installer_v0.2.28.msi) | [v0.2.28 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.28) |
 
 两个渠道提供同一份原始安装包，大小与 SHA256 已核对。Preview 用于先在图纸副本上体验新流程；
-经典版保留已有 1.x 工作流程。下载不畅时可直接选择对应的 GitHub 备用入口。
+经典版持续维护 0.2.x 工作流程。两个产品各展示一个当前版本，下载不畅时可选择对应 GitHub 备用入口。
 
 同文 2 会替换已安装的 Preview 或旧版，不能同机并存；旧工作区不迁移，请先备份图纸和数据。
-如需返回旧版，先卸载同文 2，再安装 0.2.27，不能直接降级覆盖；旧版不读取同文 2 工作区。
-经典版 0.2.27 保留原始安装包，不再构建或发布旧版 MSI。已发布 2.0.1 的 Tag、包和哈希不变。
+如需返回经典版，先卸载同文 2，再安装经典版，不能直接降级覆盖；经典版不读取同文 2 工作区。
+经典版使用软件授权窗口指引的群通用码激活和续期；0.2.27 等历史 Tag、原包和哈希保持不变。
 历史 Preview 和其他版本继续保留在 [全部 Releases](https://github.com/FeiSiPub/TongWenReleases/releases)。
 
 1. 下载所选版本的 MSI 和同一 Release 中的 `SHA256SUMS.txt`，核对文件摘要。
@@ -48,6 +48,7 @@ Release 或上述 Cloudflare 主入口下载，并使用同版本的 `SHA256SUMS
 - 唯一业务工作区由 AutoCAD 插件拥有；Studio 提供启动器和 Provider 设置。
 - 支持 CSV 术语快照、同一翻译请求内的精确重复复用、候选选择、人工修改、审校与 JSON/CSV 报告。
 - 支持 DBText/MText 的原生版面预览、明确采用与独立译文图层写回。
+- 支持恢复散线原文：局部框选、SHX/OCR、可选文本 AI 和人工校对，预览后在新图层生成可编辑原文，再交给翻译工作区。首轮测试以 AutoCAD 2026 为目标，局部视觉 AI 尚未接入。
 - 2019–2024 使用 net48，2025–2026 使用 net8；三个 SDK 的 Release 编译成功是当前支持判定依据。
 - Revit/SolidWorks、AttributeReference/Dimension、替换原文/双语追加、模糊 TM 和 Studio 完整工作区
   不属于当前 Preview 范围。
@@ -59,6 +60,10 @@ AutoCAD GUI、Provider、安装升级/卸载及其他年份宿主仍未验证，
 2.0.2 统一软件和安装器的 Preview 标识，保留数字 Tag 与文件名。完整 Release、普通 .NET
 测试（866 通过、1 项 Sentry smoke 跳过）、Reactor 与 401 项 File 表审计通过；真实 GUI、
 Provider、安装升级和各年份宿主没有因文案修改重做。发布为同一份封存候选，建议先用图纸副本体验。
+
+2.0.4 使用纯数字文件名 `TongWen_Installer_v2.0.4.msi`，产品标题仍为同文 2 Preview。已有
+2.0.3-preview.1 内部 MSI 版本为 2.0.3，新包递增版本；旧原包不改名或覆盖。真实 GUI、Undo、
+Provider 和安装验收边界仍见该版本说明；本轮下载入口更新不推进客户端升级策略。
 
 ## 文档与支持
 
