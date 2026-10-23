@@ -1,0 +1,155 @@
+name: Release retention
+run-name: Release retention · ${{ inputs.mode || 'check' }} · ${{ inputs.product_line || 'all' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'preview 只预览；execute 执行指定预览清单'
+        type: choice
+        options: [preview, execute]
+        default: preview
+        required: true
+      product_line:
+        description: '产品线（仅 preview 生效）'
+        type: choice
+        options: [all, classic, v2]
+        default: all
+        required: true
+      keep_classic_stable:
+        description: '经典版至少保留的正式版数量（仅 preview）'
+        type: string
+        default: '3'
+      keep_v2_stable:
+        description: '同文 2 至少保留的正式版数量（仅 preview）'
+        type: string
+        default: '3'
+      stable_min_age_days:
+        description: '正式版最短保留天数（仅 preview）'
+        type: string
+        default: '30'
+      keep_prerelease_per_line:
+        description: '每条产品线至少保留的预发布版数量（仅 preview）'
+        type: string
+        default: '1'
+      prerelease_min_age_days:
+        description: '预发布版最短保留天数（仅 preview）'
+        type: string
+        default: '14'
+      preview_run_id:
+        description: 'execute 必填：24 小时内同一 main 提交的成功预览 run ID'
+        type: string
+
+  pull_request:
+    paths:
+      - '.github/workflows/cleanup-releases.yml'
+      - 'config/**'
+      - 'scripts/**'
+      - 'tests/**'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cleanup-releases.yml'
+      - 'config/**'
+      - 'scripts/**'
+      - 'tests/**'
+
+permissions:
+  contents: read
+
+# Serialize only cleanup runs. Cross-repository publishing is independently
+# controlled, so the script must still recheck targets before both deletions.
+concurrency:
+  group: release-retention-${{ github.event_name == 'workflow_dispatch' && 'manual' || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Focused safety checks (no network or deletion)
+        run: python -m unittest discover -s tests -v
+      - name: Validate retention configuration
+        run: python scripts/cleanup_releases.py validate-config
+
+  preview:
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preview'
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Read-only inventory and plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_PRODUCT_LINE: ${{ inputs.product_line }}
+          INPUT_KEEP_CLASSIC_STABLE: ${{ inputs.keep_classic_stable }}
+          INPUT_KEEP_V2_STABLE: ${{ inputs.keep_v2_stable }}
+          INPUT_STABLE_MIN_AGE_DAYS: ${{ inputs.stable_min_age_days }}
+          INPUT_KEEP_PRERELEASE_PER_LINE: ${{ inputs.keep_prerelease_per_line }}
+          INPUT_PRERELEASE_MIN_AGE_DAYS: ${{ inputs.prerelease_min_age_days }}
+        run: python scripts/cleanup_releases.py preview
+      - name: Save plan or blocked diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-cleanup-plan
+          path: cleanup-output/
+          if-no-files-found: error
+          retention-days: 14
+
+  execute:
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'execute'
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Require a preview run ID
+        env:
+          PREVIEW_RUN_ID: ${{ inputs.preview_run_id }}
+        run: |
+          python -c 'import os, re, sys; sys.exit(0 if re.fullmatch(r"[1-9][0-9]*", os.environ["PREVIEW_RUN_ID"]) else "preview_run_id must be a positive run ID")'
+      - name: Download the exact preview artifact
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: release-cleanup-plan
+          repository: FeiSiPub/TongWenReleases
+          run-id: ${{ inputs.preview_run_id }}
+          github-token: ${{ github.token }}
+          path: preview-artifact/
+      - name: Validate provenance and execute only saved targets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PREVIEW_RUN_ID: ${{ inputs.preview_run_id }}
+        run: python scripts/cleanup_releases.py execute --plan preview-artifact/cleanup-plan.json --preview-run-id "$PREVIEW_RUN_ID"
+      - name: Save execution and partial-failure report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-cleanup-result-${{ github.run_attempt }}
+          path: cleanup-output/
+          if-no-files-found: warn
+          retention-days: 90

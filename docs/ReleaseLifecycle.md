@@ -22,7 +22,7 @@ Latest/Pre-release 标记，功能主题与范围写入 Release Notes，不能�
 
 同文 2 长期显示 Preview；实际使用稳定一段时间后，产品负责人另行决定正式定位。
 Preview 不改变数字版本、Tag、MSI 名称或 GitHub 技术分类，也不能由自动化通过自动晋级。
-经典版持续维护0.2.x系列，当前0.2.28；历史0.2.27只保留原包。维护线与main/2.0运行时分开。
+经典版持续维护0.2.x系列，当前0.2.28；历史0.2.27目前另行保留原包供回退。维护线与main/2.0运行时分开。
 
 ## 当前双下载入口
 
@@ -34,7 +34,7 @@ Preview 不改变数字版本、Tag、MSI 名称或 GitHub 技术分类，也不
 产品页保留 Preview/经典版两张卡片，各提供 R2 主下载及 GitHub 备用，共四个链接、两份原包。
 Preview与经典版各显式指定一个已公开的当前版本，不使用跨产品动态`/latest`选包。官网按钮
 统一“下载 · v<完整版本号>”，版本下方展示实际公开Release的北京时间日期。历史版本统一从
-全部Releases访问。当前为2.0.4与0.2.28，不再按通道新增第三个下载入口。
+可用的历史Releases访问；过期公开镜像遵循下方保留规则。当前为2.0.4与0.2.28，不再按通道新增第三个下载入口。
 同文 2 会替换 Preview/旧版安装，不能同机并存、不会迁移旧
 工作区。返回旧版前必须先卸载同文 2；Windows Installer 不支持直接降级覆盖。
 
@@ -90,12 +90,25 @@ Beta、Draft、Pre-release 不推进 stable 策略。
 
 | 版本 | 当时的用途 | MSI SHA256 |
 | --- | --- | --- |
-| [v0.2.22](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.22) | 首个策略客户端稳定基线 | `6b57352aab1f59f12c69eaaf863d5fdb151ed50f43a932d5b778d20695cc4dfb` |
-| [v0.2.23](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.23) | 首次升级与历史七天宽限验证 | `f62667e2c46e61ed5c0d514d0cc486f12a1e8a623000bcfd2c59cdcfb8e2f067` |
-| [v0.2.24](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.24) | 安装完成页产品链接修正 | `c773a9b178060cfad61479dc60038a014afca82ba62675455f0ebcfaf6e4b5c2` |
+| v0.2.22 | 首个策略客户端稳定基线 | `6b57352aab1f59f12c69eaaf863d5fdb151ed50f43a932d5b778d20695cc4dfb` |
+| v0.2.23 | 首次升级与历史七天宽限验证 | `f62667e2c46e61ed5c0d514d0cc486f12a1e8a623000bcfd2c59cdcfb8e2f067` |
+| v0.2.24 | 安装完成页产品链接修正 | `c773a9b178060cfad61479dc60038a014afca82ba62675455f0ebcfaf6e4b5c2` |
 
 0.2.22/0.2.23 均由源码提交 `9a86100fa33314eb3941eb44b7960f3149c6930a` 构建，功能源码相同，
 使用独立版本与 ProductCode 验证当时的升级关系；这些历史验证不代表同文 2 的安装验收。
+以上为历史证据，不承诺对应公开镜像永久可下载；源码发行身份与摘要仍保留。
+
+## 公开镜像保留与退休
+
+维护入口为 [Release retention](https://github.com/FeiSiPub/TongWenReleases/actions/workflows/cleanup-releases.yml)，
+详细契约见 [ReleaseRetention.md](ReleaseRetention.md)。默认两条线各保留至少 3 个正式版
+（至少 30 天）、1 个预发布版（至少 14 天），并保护官网当前下载、线上策略指向版本、每条线
+最新正式版、GitHub Latest 与手动保留项。一次最多清理 5 个 Release。
+
+只有核对成功预览并在 24 小时内手动选择执行，才删除预览中的公开 Release、全部附件与本仓库
+同名 Tag；孤立 Tag 只报告。它不修改源码仓库历史、R2、官网或升级策略，也不允许替换原包。
+此处为正常保留策略下的退休操作，与下方发布故障恢复中“不删除重传、不删除包”的规则分开。
+调整官网版本时需同步 `config/ReleaseRetention.json` 的保护集合；失败或保护源不可读时停止。
 
 ## 核对与维护
 

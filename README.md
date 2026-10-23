@@ -32,8 +32,10 @@
 
 同文 2 会替换已安装的 Preview 或旧版，不能同机并存；旧工作区不迁移，请先备份图纸和数据。
 如需返回经典版，先卸载同文 2，再安装经典版，不能直接降级覆盖；经典版不读取同文 2 工作区。
-经典版使用软件授权窗口指引的群通用码激活和续期；0.2.27 等历史 Tag、原包和哈希保持不变。
-历史 Preview 和其他版本继续保留在 [全部 Releases](https://github.com/FeiSiPub/TongWenReleases/releases)。
+经典版使用软件授权窗口指引的群通用码激活和续期；保留的历史原包不改名、不覆盖。
+可用历史版本见 [全部 Releases](https://github.com/FeiSiPub/TongWenReleases/releases)。过期公开镜像
+按[发行保留规则](docs/ReleaseRetention.md)预览后清理；源码 Tag 与发布证据继续保存，当前下载与
+线上更新指向的版本受到保护，v0.2.27 目前另行保留供回退选择。
 
 1. 下载所选版本的 MSI 和同一 Release 中的 `SHA256SUMS.txt`，核对文件摘要。
 2. 同文 2 要求 Windows x64、AutoCAD 2019–2026 和 x64 .NET 8 Desktop Runtime；缺少运行时时，
