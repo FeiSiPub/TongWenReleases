@@ -25,7 +25,7 @@
 | 产品与当前版本 | 发布日期（北京时间） | 主下载（Cloudflare） | 备用下载（GitHub） | 版本说明与校验文件 |
 | --- | --- | --- | --- | --- |
 | 同文2.0 Preview · v2.0.4 | 2026-10-23 | [下载 MSI](https://tongwen-download.278848.xyz/releases/v2.0.4/TongWen_Installer_v2.0.4.msi) | [下载 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v2.0.4/TongWen_Installer_v2.0.4.msi) | [v2.0.4 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.4) |
-| 同文 经典版 · v0.2.28 | 2026-10-23 | [下载 MSI](https://tongwen-download.278848.xyz/releases/v0.2.28/TongWen_Installer_v0.2.28.msi) | [下载 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v0.2.28/TongWen_Installer_v0.2.28.msi) | [v0.2.28 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.28) |
+| 同文 经典版 · v0.2.29 | 2026-10-26 | [下载 MSI](https://tongwen-download.278848.xyz/releases/v0.2.29/TongWen_Installer_v0.2.29.msi) | [下载 MSI](https://github.com/FeiSiPub/TongWenReleases/releases/download/v0.2.29/TongWen_Installer_v0.2.29.msi) | [v0.2.29 Release](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.29) |
 
 两个渠道提供同一份原始安装包，大小与 SHA256 已核对。Preview 用于先在图纸副本上体验新流程；
 经典版持续维护 0.2.x 工作流程。两个产品各展示一个当前版本，下载不畅时可选择对应 GitHub 备用入口。

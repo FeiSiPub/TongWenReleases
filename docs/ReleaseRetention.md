@@ -39,7 +39,7 @@ Draft、未知格式、重复 Tag 的 Release、缺少发布时间、缺 Tag、�
 以下保护优先于数量和年龄条件：
 
 - 每条产品线最新的正式版，以及 GitHub `/releases/latest`。
-- `config/ReleaseRetention.json` 的 `website_download_tags`：初始为 `v2.0.4`、`v0.2.28`。
+- `config/ReleaseRetention.json` 的 `website_download_tags`：当前为 `v2.0.4`、`v0.2.29`。
 - 配置的 `pinned_tags`：初始为 `v0.2.27`，保留历史回退选择。
 - 必需的线上策略 `https://fscad.xyz/updates/tongwen/stable.json`：保护 `latest_version`、
   下载地址指向版本，以及非 `0.0.0` 的最低支持版本。策略目前还指向 `v2.0.2`。

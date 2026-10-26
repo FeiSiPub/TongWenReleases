@@ -22,19 +22,19 @@ Latest/Pre-release 标记，功能主题与范围写入 Release Notes，不能�
 
 同文 2 长期显示 Preview；实际使用稳定一段时间后，产品负责人另行决定正式定位。
 Preview 不改变数字版本、Tag、MSI 名称或 GitHub 技术分类，也不能由自动化通过自动晋级。
-经典版持续维护0.2.x系列，当前0.2.28；历史0.2.27目前另行保留原包供回退。维护线与main/2.0运行时分开。
+经典版持续维护0.2.x系列，当前0.2.29；历史0.2.27目前另行保留原包供回退。维护线与main/2.0运行时分开。
 
 ## 当前双下载入口
 
 | 版本 | 角色 | MSI 大小 | SHA256 |
 | --- | --- | --- | --- |
 | [v2.0.4](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.4) | 当前同文2.0 Preview | 163,717,440 bytes | `eb7d87798b89ef88259818f0b98236aedef57a5a3f462ec86fa6f5fea4a7a9c5` |
-| [v0.2.28](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.28) | 当前同文经典版，持续维护0.2.x | 24,171,184 bytes | `e0b843d1d986555ff4c7e09684a11a597eeb506fce87fa04f158bfaae13eae7c` |
+| [v0.2.29](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.29) | 当前同文经典版，持续维护0.2.x | 24,175,280 bytes | `b8a04024a96e07c77e2af5e61734fe920f452a69b6b4962827de45ad762b2313` |
 
 产品页保留 Preview/经典版两张卡片，各提供 R2 主下载及 GitHub 备用，共四个链接、两份原包。
 Preview与经典版各显式指定一个已公开的当前版本，不使用跨产品动态`/latest`选包。官网按钮
 统一“下载 · v<完整版本号>”，版本下方展示实际公开Release的北京时间日期。历史版本统一从
-可用的历史Releases访问；过期公开镜像遵循下方保留规则。当前为2.0.4与0.2.28，不再按通道新增第三个下载入口。
+可用的历史Releases访问；过期公开镜像遵循下方保留规则。当前为2.0.4与0.2.29，不再按通道新增第三个下载入口。
 同文 2 会替换 Preview/旧版安装，不能同机并存、不会迁移旧
 工作区。返回旧版前必须先卸载同文 2；Windows Installer 不支持直接降级覆盖。
 
@@ -57,6 +57,15 @@ Preview与经典版各显式指定一个已公开的当前版本，不使用跨�
 ProductVersion为2.0.4、同数值覆盖关闭。publish run
 [39946467421](https://github.com/FsDiG/TongWen/actions/runs/39946467421)发布同一候选，未重新构建。
 真实GUI、Undo、Provider、安装及其他年份宿主仍未验收。
+
+0.2.29 的 source commit 为 `f805449816b26cbb02e877476c3d3ccc632f7f94`，candidate run
+[40290035664](https://github.com/FsDiG/TongWen/actions/runs/40290035664) 完成三代 SDK 构建、
+双运行时保护配置检查和 MSI 审计；publish run
+[40291418696](https://github.com/FsDiG/TongWen/actions/runs/40291418696) 于北京时间
+2026-10-26 原样发布该候选，GitHub 与 R2 摘要一致。沿用仍有效的群授权码、公钥、
+2026-11-21 群码截止日及 2027-01-21 安装包兜底日期，不按补丁发版重新累计期限。
+本轮按负责人明确指令完成发布，不等待网页缓存自然失效；人工 CAD GUI、安装升级和扫码
+尚未验收。下载入口更新不推进客户端升级策略，GitHub Latest 仍属于同文 2。
 
 2026-10-12 仅将现有 2.0.2 与 0.2.27 原包镜像到独立 `tongwen-releases` bucket，自定义域名为
 `tongwen-download.278848.xyz`，直接提供对象，不增加 Worker。每版只上传 MSI 与 SHA256SUMS.txt，

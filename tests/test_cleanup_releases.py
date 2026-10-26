@@ -83,6 +83,8 @@ class FakeGitHub:
 class RetentionTests(unittest.TestCase):
     def setUp(self):
         self.config = cleanup.load_config()
+        # Match this fixed historical inventory, independently of current website releases.
+        self.config["website_download_tags"] = ["v0.2.28", "v2.0.4"]
         self.api = FakeGitHub()
         self.parameters = copy.deepcopy(self.config["defaults"])
         self.origin = {"workflow": cleanup.WORKFLOW, "run_id": "123", "run_attempt": "1",
