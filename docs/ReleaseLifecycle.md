@@ -22,19 +22,19 @@ Latest/Pre-release 标记，功能主题与范围写入 Release Notes，不能�
 
 同文 2 长期显示 Preview；实际使用稳定一段时间后，产品负责人另行决定正式定位。
 Preview 不改变数字版本、Tag、MSI 名称或 GitHub 技术分类，也不能由自动化通过自动晋级。
-经典版持续维护0.2.x系列，当前0.2.29；历史0.2.27目前另行保留原包供回退。维护线与main/2.0运行时分开。
+经典版持续维护0.2.x系列，当前0.2.30；历史0.2.27目前另行保留原包供回退。维护线与main/2.0运行时分开。
 
 ## 当前双下载入口
 
 | 版本 | 角色 | MSI 大小 | SHA256 |
 | --- | --- | --- | --- |
 | [v2.0.4](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.4) | 当前同文2.0 Preview | 163,717,440 bytes | `eb7d87798b89ef88259818f0b98236aedef57a5a3f462ec86fa6f5fea4a7a9c5` |
-| [v0.2.29](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.29) | 当前同文经典版，持续维护0.2.x | 24,175,280 bytes | `b8a04024a96e07c77e2af5e61734fe920f452a69b6b4962827de45ad762b2313` |
+| [v0.2.30](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.30) | 当前同文经典版，持续维护0.2.x | 24,244,912 bytes | `9442b8e37b4a01514389c656473ed401268fc4339f247f8ba9df82f6b7554484` |
 
 产品页保留 Preview/经典版两张卡片，各提供 R2 主下载及 GitHub 备用，共四个链接、两份原包。
 Preview与经典版各显式指定一个已公开的当前版本，不使用跨产品动态`/latest`选包。官网按钮
 统一“下载 · v<完整版本号>”，版本下方展示实际公开Release的北京时间日期。历史版本统一从
-可用的历史Releases访问；过期公开镜像遵循下方保留规则。当前为2.0.4与0.2.29，不再按通道新增第三个下载入口。
+可用的历史Releases访问；过期公开镜像遵循下方保留规则。当前为2.0.4与0.2.30，不再按通道新增第三个下载入口。
 同文 2 会替换 Preview/旧版安装，不能同机并存、不会迁移旧
 工作区。返回旧版前必须先卸载同文 2；Windows Installer 不支持直接降级覆盖。
 
@@ -58,7 +58,15 @@ ProductVersion为2.0.4、同数值覆盖关闭。publish run
 [39946467421](https://github.com/FsDiG/TongWen/actions/runs/39946467421)发布同一候选，未重新构建。
 真实GUI、Undo、Provider、安装及其他年份宿主仍未验收。
 
-0.2.29 的 source commit 为 `f805449816b26cbb02e877476c3d3ccc632f7f94`，candidate run
+0.2.30 增加印尼语与常用翻译方向入口，source commit 为
+`3afae8d5eba5ff0bbf6733e4cc1c33599758e3c1`。candidate run
+[41382025108](https://github.com/FsDiG/TongWen/actions/runs/41382025108) 完成三代 SDK 构建、
+41 处部署保护、net8/net48 配置探针及 522 项 MSI File 表审计；下载候选后再次核对原包和全部封存文件。
+publish run [41382558213](https://github.com/FsDiG/TongWen/actions/runs/41382558213) 复用同一份候选，
+未重新构建。沿用 2026-11-21 业务截止日、2027-01-21 安装包期限与现有群码公钥；升级来源为 0.2.29。
+本轮负责人明确授权安装包及官网发布、不等待网页缓存刷新；真实 CAD GUI、Provider、安装升级和扫码仍未验收。
+
+历史 0.2.29 的 source commit 为 `f805449816b26cbb02e877476c3d3ccc632f7f94`，candidate run
 [40290035664](https://github.com/FsDiG/TongWen/actions/runs/40290035664) 完成三代 SDK 构建、
 双运行时保护配置检查和 MSI 审计；publish run
 [40291418696](https://github.com/FsDiG/TongWen/actions/runs/40291418696) 于北京时间
