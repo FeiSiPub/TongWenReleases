@@ -19,6 +19,10 @@ POLICY = {
     "latest_version": "2.0.2", "minimum_supported_version": "0.0.0",
     "download_url": "https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.2",
 }
+CLASSIC_POLICY = {
+    "latest_version": "0.2.28", "minimum_supported_version": "0.0.0",
+    "download_url": "https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.28",
+}
 
 
 def raw_release(tag, release_id, age=90, pre=False):
@@ -91,7 +95,10 @@ class RetentionTests(unittest.TestCase):
                        "head_sha": "a" * 40, "ref": "refs/heads/main"}
 
     def protection(self):
-        return cleanup.collect_protection(self.api, self.config, self.api.inventory(), policy_reader=lambda url: POLICY)
+        return cleanup.collect_protection(
+            self.api, self.config, self.api.inventory(),
+            policy_reader=lambda url: CLASSIC_POLICY if url == cleanup.CLASSIC_POLICY_URL else POLICY,
+        )
 
     def plan(self):
         return cleanup.make_plan(self.config, self.parameters, self.api.inventory(), self.protection(), self.origin, NOW)
@@ -121,10 +128,15 @@ class RetentionTests(unittest.TestCase):
     def test_protected_target_survives_small_floor(self):
         self.parameters["keep_v2_stable"] = 1
         self.assertIn("online_update_policy", self.rows()["v2.0.2"]["reasons"])
+        self.assertIn("online_update_policy", self.rows()["v0.2.28"]["reasons"])
         self.assertIn("manual_pin", self.rows()["v0.2.27"]["reasons"])
         self.assertIn("website_download", self.rows()["v2.0.4"]["reasons"])
         self.parameters["product_line"] = "v2"
         self.assertTrue(all(target["release"]["tag_name"].startswith("v2.") for target in self.plan()["targets"]))
+
+    def test_classic_policy_rejects_a_preview_target(self):
+        with self.assertRaisesRegex(cleanup.CleanupError, "classic policy must reference 0.2.x"):
+            cleanup.collect_protection(self.api, self.config, self.api.inventory(), policy_reader=lambda url: POLICY)
 
     def test_abnormal_releases_and_orphans_are_report_only(self):
         self.api.releases[1]["assets"].append({**self.api.releases[1]["assets"][0], "id": 999, "name": "extra.zip"})
@@ -156,10 +168,14 @@ class RetentionTests(unittest.TestCase):
         with self.assertRaises(cleanup.CleanupError):
             cleanup.validate_plan(plan, changed_config, NOW)
 
-    def execute(self, plan, result, policy=POLICY):
+    def execute(self, plan, result, classic_policy=CLASSIC_POLICY):
         protection_reader = cleanup.collect_protection
+
+        def read_policy(url):
+            return classic_policy if url == cleanup.CLASSIC_POLICY_URL else POLICY
+
         with patch.object(cleanup, "collect_inventory", side_effect=lambda api: api.inventory()), \
-             patch.object(cleanup, "collect_protection", side_effect=lambda api, config, inventory: protection_reader(api, config, inventory, policy_reader=lambda url: policy)), \
+             patch.object(cleanup, "collect_protection", side_effect=lambda api, config, inventory: protection_reader(api, config, inventory, policy_reader=read_policy)), \
              patch.object(cleanup, "now_utc", return_value=NOW):
             cleanup.execute_targets(self.api, self.config, plan, result, lambda: None)
 
@@ -224,7 +240,7 @@ class RetentionTests(unittest.TestCase):
     def test_new_protection_and_republished_tag_are_not_deleted(self):
         plan = self.plan()
         result = []
-        self.execute(plan, result, {**POLICY, "latest_version": "0.2.20",
+        self.execute(plan, result, {**CLASSIC_POLICY, "latest_version": "0.2.20",
                                    "download_url": "https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.20"})
         self.assertEqual(result[0]["status"], "skipped_changed_or_retained")
         self.assertIn(1, self.api.releases)

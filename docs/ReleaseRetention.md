@@ -41,12 +41,12 @@ Draft、未知格式、重复 Tag 的 Release、缺少发布时间、缺 Tag、�
 - 每条产品线最新的正式版，以及 GitHub `/releases/latest`。
 - `config/ReleaseRetention.json` 的 `website_download_tags`：当前为 `v2.0.4`、`v0.2.31`。
 - 配置的 `pinned_tags`：初始为 `v0.2.27`，保留历史回退选择。
-- 必需的线上策略 `https://fscad.xyz/updates/tongwen/stable.json`：保护 `latest_version`、
-  下载地址指向版本，以及非 `0.0.0` 的最低支持版本。策略目前还指向 `v2.0.2`。
+- 必需的线上策略包括 [同文 2 Preview](https://fscad.xyz/updates/tongwen/stable.json) 与
+  [经典版](https://fscad.xyz/updates/tongwen/classic/stable.json)。两条策略的 `latest_version`、
+  下载地址指向版本，以及非 `0.0.0` 的最低支持版本均受保护。经典版策略仅接受 0.2.x 的版本。
 
 官网当前下载通过显式配置登记，不解析 HTML。**修改官网当前版本或增加回退入口时，必须
-同步更新此配置，再生成清理预览。** 新增独立经典版策略时需一起修改配置验证与解析，
-不能把目前不存在的端点当作已接入。保护源请求失败、响应不受支持，或保护目标缺少
+同步更新此配置，再生成清理预览。** 保护源请求失败、响应不受支持，或保护目标缺少
 公开 Release/Tag 时，预览和执行都阻止；不忽略错误后继续删除。
 
 ## Actions 使用

@@ -21,6 +21,11 @@ REPOSITORY = "FeiSiPub/TongWenReleases"
 WORKFLOW = ".github/workflows/cleanup-releases.yml"
 ARTIFACT = "release-cleanup-plan"
 ROOT = Path(__file__).resolve().parents[1]
+CLASSIC_POLICY_URL = "https://fscad.xyz/updates/tongwen/classic/stable.json"
+REQUIRED_POLICY_URLS = [
+    "https://fscad.xyz/updates/tongwen/stable.json",
+    CLASSIC_POLICY_URL,
+]
 PARAMETERS = (
     "product_line", "keep_classic_stable", "keep_v2_stable",
     "stable_min_age_days", "keep_prerelease_per_line", "prerelease_min_age_days",
@@ -115,8 +120,8 @@ def load_config():
         if not isinstance(config[key], list) or any(not version(tag) for tag in config[key]):
             raise CleanupError(f"Invalid {key}")
     # New policy channels must be deliberately reviewed in code and configuration.
-    if config["required_policy_urls"] != ["https://fscad.xyz/updates/tongwen/stable.json"]:
-        raise CleanupError("The current shared stable policy is required")
+    if config["required_policy_urls"] != REQUIRED_POLICY_URLS:
+        raise CleanupError("Both published stable policies are required")
     config["defaults"] = validate_parameters(config["defaults"])
     return config
 
@@ -259,6 +264,8 @@ def collect_protection(api, config, inventory, policy_reader=fetch_json):
     for url in config["required_policy_urls"]:
         policy = policy_reader(url)
         targets = policy_tags(policy)
+        if url == CLASSIC_POLICY_URL and any(version(tag)[0] != "classic" for tag in targets):
+            raise CleanupError("The classic policy must reference 0.2.x releases")
         policies.append({"url": url, "policy_sha256": digest(policy), "tags": targets})
         for tag in targets:
             protect(tag, "online_update_policy")

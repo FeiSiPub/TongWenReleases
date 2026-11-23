@@ -6,7 +6,10 @@
   "max_deletions_per_run": 5,
   "website_download_tags": ["v0.2.31", "v2.0.4"],
   "pinned_tags": ["v0.2.27"],
-  "required_policy_urls": ["https://fscad.xyz/updates/tongwen/stable.json"],
+  "required_policy_urls": [
+    "https://fscad.xyz/updates/tongwen/stable.json",
+    "https://fscad.xyz/updates/tongwen/classic/stable.json"
+  ],
   "defaults": {
     "product_line": "all",
     "keep_classic_stable": 3,
