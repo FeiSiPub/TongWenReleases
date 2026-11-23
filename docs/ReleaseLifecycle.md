@@ -22,19 +22,19 @@ Latest/Pre-release 标记，功能主题与范围写入 Release Notes，不能�
 
 同文 2 长期显示 Preview；实际使用稳定一段时间后，产品负责人另行决定正式定位。
 Preview 不改变数字版本、Tag、MSI 名称或 GitHub 技术分类，也不能由自动化通过自动晋级。
-经典版持续维护0.2.x系列，当前0.2.30；历史0.2.27目前另行保留原包供回退。维护线与main/2.0运行时分开。
+经典版持续维护 0.2.x 系列，当前为 0.2.31，日常翻译推荐使用。历史 0.2.27 另行保留原包供回退。
 
 ## 当前双下载入口
 
 | 版本 | 角色 | MSI 大小 | SHA256 |
 | --- | --- | --- | --- |
+| [v0.2.31](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.31) | 当前同文经典版，日常翻译推荐 | 24,244,912 bytes | `fc1778616ee1caab01bd0b556b9fbd029b7016e1f0c898a1ec7478bb71e1f78d` |
 | [v2.0.4](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v2.0.4) | 当前同文2.0 Preview | 163,717,440 bytes | `eb7d87798b89ef88259818f0b98236aedef57a5a3f462ec86fa6f5fea4a7a9c5` |
-| [v0.2.30](https://github.com/FeiSiPub/TongWenReleases/releases/tag/v0.2.30) | 当前同文经典版，持续维护0.2.x | 24,244,912 bytes | `9442b8e37b4a01514389c656473ed401268fc4339f247f8ba9df82f6b7554484` |
 
-产品页保留 Preview/经典版两张卡片，各提供 R2 主下载及 GitHub 备用，共四个链接、两份原包。
+产品页主推经典版，并保留 Preview 供公开测试。两张卡片均提供 R2 主下载及 GitHub 备用。
 Preview与经典版各显式指定一个已公开的当前版本，不使用跨产品动态`/latest`选包。官网按钮
 统一“下载 · v<完整版本号>”，版本下方展示实际公开Release的北京时间日期。历史版本统一从
-可用的历史Releases访问；过期公开镜像遵循下方保留规则。当前为2.0.4与0.2.30，不再按通道新增第三个下载入口。
+可用的历史Releases访问；过期公开镜像遵循下方保留规则。
 同文 2 会替换 Preview/旧版安装，不能同机并存、不会迁移旧
 工作区。返回旧版前必须先卸载同文 2；Windows Installer 不支持直接降级覆盖。
 
@@ -58,7 +58,7 @@ ProductVersion为2.0.4、同数值覆盖关闭。publish run
 [39946467421](https://github.com/FsDiG/TongWen/actions/runs/39946467421)发布同一候选，未重新构建。
 真实GUI、Undo、Provider、安装及其他年份宿主仍未验收。
 
-0.2.30 增加印尼语与常用翻译方向入口，source commit 为
+历史 0.2.30 增加印尼语与常用翻译方向入口，source commit 为
 `3afae8d5eba5ff0bbf6733e4cc1c33599758e3c1`。candidate run
 [41382025108](https://github.com/FsDiG/TongWen/actions/runs/41382025108) 完成三代 SDK 构建、
 41 处部署保护、net8/net48 配置探针及 522 项 MSI File 表审计；下载候选后再次核对原包和全部封存文件。
